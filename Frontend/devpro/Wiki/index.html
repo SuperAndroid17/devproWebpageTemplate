@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <!-- Meta-Informationen, Seitentitel, CSS, Favicons, usw. -->
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="DevPro Wiki">
+<meta name="keywords" content="">
+<meta name="author" content="Benjamin Knecht">
+
+
+<title>
+  
+   DevPro Wiki
+  
+</title>
+
+<script src="js/jquery.min.js"></script>
+  <!-- Das neueste kompilierte und minimierte CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+
+
+<!-- Unterstützung für Media Queries und HTML5-Elemente in IE8 über HTML5 shim und Respond.js -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!-- Favicons -->
+<link rel="apple-touch-icon" href="apple-touch-icon-precomposed">
+<link rel="icon" href="favicon.ico">
+
+
+  </head>
+  <body>
+    <a id="skippy" class="sr-only sr-only-focusable" href="#content"><div class="container"><span class="skiplink-text">Zum Hauptinhalt springen</span></div></a>
+
+    <!-- Hauptnavigation -->
+    <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="sr-only">Hauptnavigation ein-/ausblenden</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="../" class="navbar-brand">Bootstrap</a>
+    </div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">DevPro</a>
+        </div>
+        
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+    <!-- Seitenlayout -->
+    <div class="bs-docs-header" id="content">
+      <div class="container">
+        <h1>Wiki!</h1>
+        <p>The Wiki is for developers of the DevPro-Web Backend Page. The Page is a Custom build and this wiki try to help you 
+        to get a better entry in coding parts for this Page. The Page use Bootstrap as css Framework, JS/Jquery, PHP on the Server Side. "Frontend 
+        stores the Template(view), "Engine/Class stores all classes and the Api response the Get and Post requests in JSON. 
+        </p>
+      </div>
+    </div>
+
+    <div class="container bs-docs-container">
+
+      <div class="row">
+        <div class="col-md-9" role="main">
+          <div class="bs-docs-section">
+  
+  <div class="row bs-downloads">
+    <div class="col-sm-4">
+      
+    </div>
+    <div class="col-sm-4">
+      
+    </div>
+    <div class="col-sm-4">
+      
+    </div>
+  </div>
+
+
+  
+  
+  
+  </div>
+
+<div class="bs-docs-section">
+<h3 id="ordnerstruktur">Ordnerstruktur Devpro Web Template</h3>
+<p>
+    Das Web Template kann von Github runter geladen werden und sollte dann folgende Ordnerstruktur aufweisen.
+</p>
+
+<!-- NOTE: This info is intentionally duplicated in the README.
+Copy any changes made here over to the README too. -->
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">devproTemplate/
+├── Engine/
+│   └── Api/
+│   ├── Class/
+│   
+├── Frontend/
+│   └── devpro/
+│       ├── Dashboard/
+│       ├── header/
+│       ├── footer/
+│       ├── loginModal/
+│       ├── Main/
+│       ├── Media/
+│       ├── navigation/
+│       ├── Rankings/
+│       ├── resources/
+│       ├── Wiki/
+
+</code></pre></div>
+
+<h3>Api</h3>
+<p>
+    send GET & POST to the API and get a JSON Response back. All Requests are filtered over den devproPost Class. Its a abstract class, it uses for 
+    every different POST or GET request a own filter Method. It uses the PHP filter_input Method to filter all 
+    incoming data from outside. You can set the length with SUBSTR and which chars allowed with FILTER_VALIDATE_REGEXP. in the Main JSON Response script check 
+    if the filter response is true and load then the needed Method over the classes. Like in the examble its need then to load the devproDevpoints Class.
+</p>
+
+<p><b>Examble Code devproPost Class</b></p>
+<div class="alert alert-info" role="alert">
+    <p>/*<br>
+        * Max. 3 Number allowed!<br>
+        * only positive Numbers allowed!<br>
+        * @return String or false<br>
+        */<br>
+        public static function postdptranferAmmount()<br>
+        {<br>
+        return substr(filter_input(INPUT_POST, 'dptranferAmmount', FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[0-9]+$/"))), 0, 3);<br>
+        }<br>
+    </p>
+</div>
+<br>
+<p><b>POST Vars</b></p>
+<ul>
+    <li>devproUsername</li>
+    <li>devproPassword</li>
+    <li>g-recaptcha-response</li>
+    <li>devproLogout</li>
+    <li>getSessionStatus</li>
+    <li><mark>dptranferAmmount</mark></li>
+    <li>getdevpoints</li>
+    <li>getSleeveStatus</li>
+    <li>setActivateSleeveUpload</li>
+    <li>devproSleeveUpload</li>
+    <li>postShowSingleRankings</li>
+    <li>postShowMatchRankings</li>
+    
+</ul>
+
+<h3>Class</h3>
+<p>
+    All Classes are stored here and loaded over the autoloader.php The main class is devpro where you find needed functions for all other 
+    extended devpro classes. If its created new parts which doesnt use as entry the template loader its needs to setup the autoloader.php to load 
+    all classes from the other location.
+</p>
+<ul>Class List
+    <li>devpro</li>
+    <li>devpro_ajaxHandler</li>
+    <li>devpro_user</li>
+    <li>devproDevpoints</li>
+    <li>devproPost</li>
+    <li>devproRankings</li>
+    <li>devproSession</li>
+    <li>devproSleeves</li>
+</ul>
+
+<h3>Frontend</h3>
+<p>
+    The Frontend folder has the templateloader.php which loads the devpro Template. The Template contains the view part from a MVC Model. 
+    all JS, CSS, Fonts, favicon, apple icon Files are store in "resources". The Template is splitted in the follow parts: Header, Footer, Navigation, 
+    loginModal, Dashboard, Main, Rankings and Wiki.
+</p>
+
+<h3>Dashboard</h3>
+<p>
+    Is the Session protected login area. Users can here upload his sleeves and manage his Account. 
+</p>
+<ul>Dashboard Widgets
+    <li>sendDevpoints</li>
+    <li>SleeveManager *Premium required</li>
+    <li>SleeveUpload</li>
+</ul>
+
+<div class="alert alert-info" role="alert">*required $_SESSION['devproSession']</div>
+
+<h3>Main</h3>
+<p>
+    index Site Content from the Page.
+</p>
+
+<h3>Wiki</h3>
+<p>
+    Project Wiki, all needs infos stored here.
+</p>
+
+<h3>Header</h3>
+<p>
+    JS and CSS Files are included here. Start Body Tag is added here, loaded in all Pages.
+</p>
+
+<h3>Footer</h3>
+<p>
+    Copyright Info Footer, loaded in all Pages.
+</p>
+
+<h3>Navigation</h3>
+<p>
+    Navigation and login/logout and basic userinfos stored here, loaded in all Pages.
+</p>
+
+<h3>Resources</h3>
+<p>
+    store Javascript, css and font files here.
+</p>
+
+<h3>loginModal</h3>
+<p>
+    The Login Popup/Modal
+</p>
+
+<h3>Rankings</h3>
+<p>
+    Get the Top Rankings (max Post Request 999 allowed) for Single or Match by Elo. Get playerranking by 
+    Username.
+</p>
+
+</div>  
+
+
+
+
+
+  
+        </div><!-- END -->
+
+
+  
+
+<!-- Bootstrap JavaScript
+================================================== -->
+<!-- Am Ende des Dokuments platziert, damit Seiten schneller laden -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+
+  <script src="js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

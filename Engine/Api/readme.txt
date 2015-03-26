@@ -1,0 +1,1 @@
+Die Api Schnittstelle stellt Daten vom Server im JSON Format bereit.
