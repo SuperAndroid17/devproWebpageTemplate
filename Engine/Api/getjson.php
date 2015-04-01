@@ -173,11 +173,11 @@ if(isset($_FILES['devproSleeveUpload'])){
     $result = $devproSleeves->sleeveUpload();
     if($result === TRUE){
          $_SESSION['devproActiveSleeve'] = $devproSleeves->getActiveSleeve($_SESSION['devproUsername']);
-        header('Location: http://ygopro.de/web-devpro/Frontend/devpro/Dashboard/dashboard.php?sleeveupload=ok');
+        header('Location: http://ygopro.de/web-devpro/index.php?site=Dashboard&sleeveupload=ok');
     }
     else
     {
-        header('Location: http://ygopro.de/web-devpro/Frontend/devpro/Dashboard/dashboard.php?sleeveupload=failed');
+        header('Location: http://ygopro.de/web-devpro/index.php?site=Dashboard&sleeveupload=failed');
     }
 }
 
