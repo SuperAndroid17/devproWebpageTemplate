@@ -347,7 +347,7 @@ function getSleeveStatusData()
                       <label for="beispielFeldDatei">Sleeve upload</label>
                       <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
                       <input type="file" id="sleeveUploadFile" name="devproSleeveUpload">
-                      <p class="help-block">Format: JPG, Height: 177px, width: 254px, Max Filesize: 30KB, 100 Devpoints</p>
+                      <p class="help-block">Format: JPG, Height: 177/178px, width: 254px, Max Filesize: 50KB, 100 Devpoints</p>
                     </div>
                     <button type="submit" class="btn btn-default">upload</button>
                     <?php 
