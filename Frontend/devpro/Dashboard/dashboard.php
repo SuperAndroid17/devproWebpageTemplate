@@ -19,8 +19,18 @@ if(!isset($_SESSION['devproSession'])){
 
 // 
 $sleeves = new devproSleeves();
-$sleeves->getSleeves();
 
+
+// DELETE CHANGE LATER
+// activateSleeve *premiumManager
+// set other sleeves to 0
+// set this Sleeve to 1
+if(isset($_GET['activateSleeve'])){
+    $sleeveId = substr(filter_input(INPUT_GET, 'activateSleeve', FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[0-9]+$/"))), 0, 8);
+    $sleeves->activateSleeve($sleeveId);
+}
+
+$sleeves->getSleeves();
 ?>
 
 
@@ -29,6 +39,7 @@ $sleeves->getSleeves();
 
 <script>
     tdevpoints = 0;
+    getDevpoints();
     $(function() {
 
     //hang on event of form with id=myform
@@ -244,6 +255,7 @@ function getSleeveStatusData()
                                             $i = 1;
                             
                                         if(!empty($_SESSION['devproSleeves'])){
+                                            
                                             echo '<table class="table">';
                                             echo '<th>Number</th><th>Thumbnail</th><th>Url</th><th>activate</th><th>Delete</th>';
 
@@ -255,12 +267,12 @@ function getSleeveStatusData()
                                                 echo '<td><a href="#"><img src="http://ygopro.de/launcher/sleeveUploads/'.$value['dp_filename'].'" width="44px" height="64px" /></a></td>';
                                                 echo '<td><a href="http://ygopro.de/launcher/sleeveUploads/'.$value['dp_filename'].'">http://ygopro.de/launcher/sleeveUploads/'.$value['dp_filename'].'</a></td>';
                                                 if($value['dp_sleeveActive'] ==  0){
-                                                    echo '<td>-</td>';
+                                                    echo '<td><button><a href="http://ygopro.de/web-devpro/index.php?site=Dashboard&activateSleeve='.$value['dp_id'].'">ID '.$value['dp_id'].' Activate</a></button></td>';
                                                 }
                                                 else {
                                                     echo '<td>Sleeve active!</td>';
                                                 }
-                                                echo '<td>-</td>';
+                                                echo '<td><button>ID '.$value['dp_id'].' Delete</button></td>';
                                                 echo '</tr>';
                                             }
                                             echo '</table>';
@@ -345,9 +357,9 @@ function getSleeveStatusData()
                 <form enctype="multipart/form-data" action="http://ygopro.de/web-devpro/Engine/Api/getjson.php" method="post" id="sleeveUploadForm" style="display: none;">
                     <div class="form-group">
                       <label for="beispielFeldDatei">Sleeve upload</label>
-                      <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+                      <input type="hidden" name="MAX_FILE_SIZE" value="50000" />
                       <input type="file" id="sleeveUploadFile" name="devproSleeveUpload">
-                      <p class="help-block">Format: JPG, Height: 177/178px, width: 254px, Max Filesize: 50KB, 100 Devpoints</p>
+                      <p class="help-block">Format: JPG, Height: 177px, width: 254px, Max Filesize: 30KB, 100 Devpoints</p>
                     </div>
                     <button type="submit" class="btn btn-default">upload</button>
                     <?php 
@@ -355,8 +367,26 @@ function getSleeveStatusData()
                             if($_GET['sleeveupload'] == 'ok'){
                                 echo '<p style="color: green;">Sleeve Upload ok!</p>';
                             }
-                            if($_GET['sleeveupload'] == 'failed'){
-                                    echo '<p style="color: red;">Sleeve Upload failed!</p>';
+                            else{
+                                    $errorMsg = substr(filter_input(INPUT_GET, 'sleeveupload', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH), 0, 50);
+                                    switch ($errorMsg) {
+                                        case 1:
+                                            $errorMsg = 'max Filesize!';
+                                            break;
+                                        case 2:
+                                            $errorMsg = 'max Filesize!';
+                                            break;
+                                        case 3:
+                                            $errorMsg = 'The uploaded file was only partially uploaded!';
+                                            break;
+                                        case 4:
+                                            $errorMsg = 'No file was uploaded!';
+                                            break;
+
+                                        default:
+                                            break;
+                                    }
+                                    echo '<p style="color: red;">ErrorMsg: '.$errorMsg.'</p>';
                             }
                         } 
                         

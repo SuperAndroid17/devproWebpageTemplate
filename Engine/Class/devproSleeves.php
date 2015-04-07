@@ -99,6 +99,13 @@ class devproSleeves extends devpro{
         // code cleanup using queryBuilder
         $queryArray[] = $username;
         $result = $this->queryBuilder($queryArray, "SELECT * FROM sleeveuploads_users WHERE dp_username = ?");
+        /*
+         * REMOVED Code Cleanup
+         * $db = $this->openDB();
+         * $eintrag = $db->prepare($query);
+           $eintrag->bindParam(1, $username);
+           $eintrag->execute();
+           $result = $eintrag->fetch(PDO::FETCH_ASSOC); */
         
         $check = $result['dp_username'];
          
@@ -223,7 +230,6 @@ class devproSleeves extends devpro{
        $query = ("SELECT * FROM sleeveuploads_uploads WHERE dp_username = ? AND dp_sleeveActive = 1"); 
        $array[] = $username;
        $result = $this->queryBuilder($array, $query);
-        $res = $result;
         return $result;
     }
    
@@ -502,6 +508,38 @@ class devproSleeves extends devpro{
     * - change active Sleeve
     * - activate Premium
     * - check Premium
+    * - freeSleeveUploads
     */
+   
+   /*
+    * @return bool
+    * set all active sleeves from user to 0
+    * set new sleeve to 1 
+    */
+   public function activateSleeve($sleeveId) {
+       // get ID from User
+       $username = $_SESSION['devproUsername'];
+       $db = $this->openDB();
+       
+        // set other Sleeves active to 0
+        $sleeveActive = 0;
+        $query = ("UPDATE sleeveuploads_uploads SET dp_sleeveActive = ? WHERE dp_username = ?");
+        $exec = $db->prepare($query);
+        $exec->bindParam(1, $sleeveActive);
+        $exec->bindParam(2, $username);
+        $exec->execute();
+        
+        // set new Sleeves active to 1
+        $sleeveActive = 1;
+        $query = ("UPDATE sleeveuploads_uploads SET dp_sleeveActive = ? WHERE dp_username = ? AND dp_id = ?");
+        $exec = $db->prepare($query);
+        $exec->bindParam(1, $sleeveActive);
+        $exec->bindParam(2, $username);
+        $exec->bindParam(3, $sleeveId);
+        $exec->execute();
+        
+        $exec = NULL;
+        $db = NULL;
+   }
    
 }
