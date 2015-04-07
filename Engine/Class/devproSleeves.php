@@ -502,6 +502,8 @@ class devproSleeves extends devpro{
     * Sleeve Manager for Premium Users
     * - Delete Sleeve
     * - change active Sleeve
+    * - activate Premium
+    * - check Premium
     */
    
 }
