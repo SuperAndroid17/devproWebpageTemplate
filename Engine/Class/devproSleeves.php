@@ -94,15 +94,13 @@ class devproSleeves extends devpro{
     }
     
     public function checkUserExist($username) {
-        $db = $this->openDB();
         
-        $query = ("SELECT * FROM sleeveuploads_users WHERE dp_username = ?");
-        $eintrag = $db->prepare($query);
-        $eintrag->bindParam(1, $username);
-        $eintrag->execute();
         
-         $result = $eintrag->fetch(PDO::FETCH_ASSOC);
-         $check = $result['dp_username'];
+        // code cleanup using queryBuilder
+        $queryArray[] = $username;
+        $result = $this->queryBuilder($queryArray, "SELECT * FROM sleeveuploads_users WHERE dp_username = ?");
+        
+        $check = $result['dp_username'];
          
          $eintrag = NULL;
          $db = NULL;
