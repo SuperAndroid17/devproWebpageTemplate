@@ -208,7 +208,7 @@ function getSleeveStatusData()
                       <fieldset>
 
                           <p>
-                              <label for="dptranferAmmount">Ammount:</label>
+                              <label for="dptranferAmmount">Amount:</label>
                               <input class="form-control" id="dptranferAmmount" type="text" name="dptranferAmmount" value="" size="20" maxlength="50" />
                           </p>
                           <p>
@@ -238,9 +238,9 @@ function getSleeveStatusData()
                         
                       <ul> 
                           <li>Free Sleeve uploads without Devpoints</li>
-                          <li>delete Sleeves</li>
-                          <li>activate Sleeves</li>
-                          <li>Sleeve Storage Limit up to 10</li>
+                          <li>Delete Sleeves</li>
+                          <li>Activate Sleeves</li>
+                          <li>Sleeve Storage limit up to 10</li>
                       </ul>
                         
                         <!-- Zeige Sleeves aus Datenbank an! -->
@@ -258,7 +258,7 @@ function getSleeveStatusData()
                                     <input type="hidden" name="currency_code" value="EUR">
                                     <input type="hidden" name="item_name" value="'.$_SESSION['devproUsername'].'">
                                     <input type="hidden" name="amount" value="9.99">
-                                    <input type="image" src="https://www.paypalobjects.com/de_DE/CH/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="Zahlen Sie mit PayPal – schnell, kostenlos und sicher!">
+                                    <input type="image" src="https://www.paypalobjects.com/de_DE/CH/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="Zahlen Sie mit PayPal Â– schnell, kostenlos und sicher!">
                                     </form>';
                             }
                             else 
@@ -327,11 +327,11 @@ function getSleeveStatusData()
                 -->
                 
                 <form id="formActivateSleeveUploads" style="display: none;">
-                    You need first a active Web Account, Free or Premium to Upload your Sleeves!<br>
+                    You need first an active Web Account, Free or Premium to Upload your Sleeves!<br>
                     <div class="checkbox">
                         <label><input type="checkbox" name="sleeveUploadActivationCheckbox"> <a href="#">Accept AGB</a></label>
                         <br>
-                        <button id="btnActivateSleeveUpload" type="submit" class="btn btn-default">activate Sleeve upload</button>
+                        <button id="btnActivateSleeveUpload" type="submit" class="btn btn-default">Activate Sleeve upload</button>
                         <p id="responseActivateSleeveUpload" style="color: red;"></p>
                     </div>
                 </form>
@@ -372,7 +372,7 @@ function getSleeveStatusData()
                       <input type="file" id="sleeveUploadFile" name="devproSleeveUpload">
                       <p class="help-block">Format: JPG, Height: 177/178px, width: 254px, Max Filesize: 50KB, 100 Devpoints</p>
                     </div>
-                    <button type="submit" class="btn btn-default">upload</button>
+                    <button type="submit" class="btn btn-default">Upload</button>
                     <?php 
                         if(isset($_GET['sleeveupload'])){
                             if($_GET['sleeveupload'] == 'ok'){
