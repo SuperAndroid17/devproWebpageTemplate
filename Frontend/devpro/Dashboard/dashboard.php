@@ -235,9 +235,9 @@ function getSleeveStatusData()
                     <!-- Default panel contents -->
                     <div class="panel-heading">Sleeve Manager - *Premium Account required</div>
                     <div class="panel-body">
-                        <p>If you want get a Premium Account there are different ways to get it. For now you can fill out this Form:  <a href="#">Get-Free-Premium-Account</a></p>
+                        
                       <ul> 
-                          <li>unlimited Sleeve uploads without Devpoints</li>
+                          <li>Free Sleeve uploads without Devpoints</li>
                           <li>delete Sleeves</li>
                           <li>activate Sleeves</li>
                           <li>Sleeve Storage Limit up to 10</li>
@@ -249,6 +249,17 @@ function getSleeveStatusData()
                             if(!isset($_SESSION['devproPremium']))
                             {
                                 echo '<p>*Premium Account required</p>';
+                                echo '<p>activate your Upload Account before you buy Premium!!!</p>';
+                                echo '<p>90 Days Premium = 9,99 Euro</p>';
+                                
+                                echo '<form name="_xclick" action="https://www.paypal.com/de/cgi-bin/webscr" method="post">
+                                    <input type="hidden" name="cmd" value="_xclick">
+                                    <input type="hidden" name="business" value="knechtbenjamin@web.de">
+                                    <input type="hidden" name="currency_code" value="EUR">
+                                    <input type="hidden" name="item_name" value="'.$_SESSION['devproUsername'].'">
+                                    <input type="hidden" name="amount" value="9.99">
+                                    <input type="image" src="https://www.paypalobjects.com/de_DE/CH/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="Zahlen Sie mit PayPal – schnell, kostenlos und sicher!">
+                                    </form>';
                             }
                             else 
                                 {   
@@ -267,7 +278,7 @@ function getSleeveStatusData()
                                                 echo '<td><a href="#"><img src="http://ygopro.de/launcher/sleeveUploads/'.$value['dp_filename'].'" width="44px" height="64px" /></a></td>';
                                                 echo '<td><a href="http://ygopro.de/launcher/sleeveUploads/'.$value['dp_filename'].'">http://ygopro.de/launcher/sleeveUploads/'.$value['dp_filename'].'</a></td>';
                                                 if($value['dp_sleeveActive'] ==  0){
-                                                    echo '<td><button><a href="http://ygopro.de/web-devpro/index.php?site=Dashboard&activateSleeve='.$value['dp_id'].'">ID '.$value['dp_id'].' Activate</a></button></td>';
+                                                    echo '<td><a href="http://ygopro.de/web-devpro/index.php?site=Dashboard&activateSleeve='.$value['dp_id'].'">ID '.$value['dp_id'].' Activate</a></td>';
                                                 }
                                                 else {
                                                     echo '<td>Sleeve active!</td>';
@@ -359,7 +370,7 @@ function getSleeveStatusData()
                       <label for="beispielFeldDatei">Sleeve upload</label>
                       <input type="hidden" name="MAX_FILE_SIZE" value="50000" />
                       <input type="file" id="sleeveUploadFile" name="devproSleeveUpload">
-                      <p class="help-block">Format: JPG, Height: 177px, width: 254px, Max Filesize: 30KB, 100 Devpoints</p>
+                      <p class="help-block">Format: JPG, Height: 177/178px, width: 254px, Max Filesize: 50KB, 100 Devpoints</p>
                     </div>
                     <button type="submit" class="btn btn-default">upload</button>
                     <?php 
