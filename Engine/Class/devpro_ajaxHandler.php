@@ -25,10 +25,10 @@ class devpro_ajaxHandler extends devpro {
         $db = $this->openDB();
         
         $query = ("SELECT * 
-                  FROM tdoaneygoprologin 
+                  FROM logindata 
                   LEFT JOIN userdata
-                  ON tdoaneygoprologin.username = userdata.username
-                  WHERE tdoaneygoprologin.username = ?"); 
+                  ON logindata.username = userdata.username
+                  WHERE logindata.username = ?"); 
         
             $eintrag = $db->prepare($query);
             $eintrag->bindParam(1, $username);
@@ -57,11 +57,20 @@ class devpro_ajaxHandler extends devpro {
         // Hash Password and check Password matches, returns bool
         $status = $this->login($username, $password);
         
-         if($status == true){
+         if($status === true){
                 $session->setSession();
                 $_SESSION['devproUsername'] = $username;
                 $_SESSION['devproActiveSleeve'] = $this->getActiveSleeve($username);
                 $_SESSION['devproSessionLoginCounter'] = 0; // set Login Trys to 0
+                
+                // getUserrank
+                $_SESSION['devproRank'] = $this->getRank($username);
+                
+                //add Premium for Mods
+                if($_SESSION['devproRank'] > 0 && $_SESSION['devproRank'] < 10){
+                    $_SESSION['devproPremium'] = true;
+                }
+                
                 // check if user get Premium
                 if($this->getPremiumStatus() == TRUE){
                     $_SESSION['devproPremium'] = true;
@@ -82,7 +91,7 @@ class devpro_ajaxHandler extends devpro {
         
     }
     
-    private function getPremiumStatus() {
+    public function getPremiumStatus() {
         $username = $_SESSION['devproUsername'];
         $db = $this->openDB();
         $query = ("SELECT * FROM sleeveuploads_users  WHERE dp_username = ?");
@@ -122,10 +131,10 @@ class devpro_ajaxHandler extends devpro {
         $db = $this->openDB();
         
         $query = ("SELECT * 
-                  FROM tdoaneygoprologin 
+                  FROM logindata 
                   LEFT JOIN userdata
-                  ON tdoaneygoprologin.username = userdata.username
-                  WHERE tdoaneygoprologin.username = ?"); 
+                  ON logindata.username = userdata.username
+                  WHERE logindata.username = ?"); 
         
             $eintrag = $db->prepare($query);
             $eintrag->bindParam(1, $username);
@@ -143,5 +152,15 @@ class devpro_ajaxHandler extends devpro {
             
     }
     
-    
+    /*
+     * @return string
+     * 
+     */
+    public function getRank($username) {
+        $query = ("SELECT rank FROM logindata WHERE username = ? LIMIT 1"); 
+        $array[] = $username;
+        $result = $this->queryBuilder($array, $query);
+        
+        return $result[0]['rank'];
+    }
 }

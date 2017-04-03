@@ -14,7 +14,7 @@
 <div class="container">
     
     
-    <form id="devproShowSingleRankings" class="form-inline" method="post" action="http://ygopro.de/web-devpro/Engine/Api/getjson.php">
+    <form id="devproShowSingleRankings" class="form-inline" method="post" action="http://158.69.116.140/web-devpro/Engine/Api/getjson.php">
         <div class="form-group">
             <select class="form-control" name="ShowSingleRankings">
                 <option value="100">Top 100</option>

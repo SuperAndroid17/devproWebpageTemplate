@@ -35,7 +35,7 @@ $(document).ready(function() {
             
             
             //get the action-url of the form
-            var actionurl = "http://ygopro.de/web-devpro/Engine/Api/getjson.php";
+            var actionurl = "http://158.69.116.140/web-devpro/Engine/Api/getjson.php";
 
             //do your own request an handle the results
              $.ajax({
@@ -69,7 +69,7 @@ $(document).ready(function() {
                                     // Show Username
                                     $("#navbar").append("<p class=\"navbar-text navbar-right\">" + data.username + "</p>");
                                     // show Dashboar Link
-                                    $("#devproDashboard").replaceWith("<li id=\"devproDashboard\"><a href=\"http://ygopro.de/web-devpro/index.php?site=Dashboard\">Dashboard</a></li>");
+                                    $("#devproDashboard").replaceWith("<li id=\"devproDashboard\"><a href=\"http://158.69.116.140/web-devpro/index.php?site=Dashboard\">Dashboard</a></li>");
                                 }
                                // todo: wenn login = ok schliese Modal und zeige
                                // Namen, logout Button und Dashboard an.
@@ -90,7 +90,7 @@ function getUsername()
 function setLogout()
 {
      console.log("go logout");
-     var actionurl = "http://ygopro.de/web-devpro/Engine/Api/getjson.php";
+     var actionurl = "http://158.69.116.140/web-devpro/Engine/Api/getjson.php";
      $.ajax({
                     url: actionurl,
                     type: 'post',
@@ -103,7 +103,7 @@ function setLogout()
                                     //$("#devproLoginBtn").replaceWith("<button id=\"devproLoginBtn\" type=\"button\" data-toggle=\"modal\" data-target=\"#loginModal\" class=\"btn btn-warning\">Sign In</button>");
                                     //$("#devproDashboard").replaceWith("<li id=\"devproDashboard\" role=\"presentation\" class=\"disabled\"><a href=\"#\">Dashboard</a></li>");
                                     //$(".navbar-text").remove();
-                                    window.location ="http://ygopro.de/web-devpro/";
+                                    window.location ="http://158.69.116.140/web-devpro/";
                                 }                            
                              }
                 });
@@ -111,7 +111,7 @@ function setLogout()
 
 function getSessionStatus()
 {
-    var actionurl = "http://ygopro.de/web-devpro/Engine/Api/getjson.php";
+    var actionurl = "http://158.69.116.140/web-devpro/Engine/Api/getjson.php";
      $.ajax({
                     url: actionurl,
                     type: 'post',
@@ -124,7 +124,7 @@ function getSessionStatus()
                                    $("#navbar").append("<p class=\"navbar-text navbar-right\">" + data.username + "</p>");
                                    $("#navbar").append("<p id=\"devpointsP\" class=\"navbar-text navbar-right\">Devpoints: " + tdevpoints + "</p>");
                                    $("#devproLoginNavbar").append("<button id=\"devproLoginBtn\" type=\"button\" onclick=\"setLogout()\" class=\"btn btn-warning\">Logout</button>");
-                                   $("#devproDashboard").replaceWith("<li id=\"devproDashboard\"><a href=\"http://ygopro.de/web-devpro/index.php?site=Dashboard\">Dashboard</a></li>");
+                                   $("#devproDashboard").replaceWith("<li id=\"devproDashboard\"><a href=\"http://158.69.116.140/web-devpro/index.php?site=Dashboard\">Dashboard</a></li>");
                                 }
                                else
                                {
@@ -144,7 +144,7 @@ $(document).ready(function(){
         //prevent Default functionality
         e.preventDefault();
         
-         var url = "http://ygopro.de/web-devpro/Engine/Api/getjson.php";
+         var url = "http://158.69.116.140/web-devpro/Engine/Api/getjson.php";
          var data = $("#devproShowSingleRankings").serialize();
 
          $.ajax({
@@ -182,7 +182,7 @@ $(document).ready(function(){
         //prevent Default functionality
         e.preventDefault();
         
-         var url = "http://ygopro.de/web-devpro/Engine/Api/getjson.php";
+         var url = "http://158.69.116.140/web-devpro/Engine/Api/getjson.php";
          var data = $("#devproShowMatchRankings").serialize();
 
          $.ajax({
@@ -213,7 +213,7 @@ function getDevpoints()
 {
     console.log("send getDevpoints");
 
-    var url = "http://ygopro.de/web-devpro/Engine/Api/getjson.php";
+    var url = "http://158.69.116.140/web-devpro/Engine/Api/getjson.php";
     $.ajax({
                 url: url,
                 type: 'post',

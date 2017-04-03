@@ -171,7 +171,7 @@ public function login($username, $password) {
         $pwHash = $this->SetCryptPassword($password);
         
         $query = ("SELECT password 
-                  FROM tdoaneygoprologin 
+                  FROM logindata 
                   WHERE username = ?"); 
         
         

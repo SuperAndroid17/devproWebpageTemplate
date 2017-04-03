@@ -60,7 +60,7 @@ abstract class devproPost extends devpro {
      */
     public static function postdptranferAmmount()
     {
-        return substr(filter_input(INPUT_POST, 'dptranferAmmount', FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[0-9]+$/"))), 0, 3);
+        return substr(filter_input(INPUT_POST, 'dptranferAmmount', FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[0-9]+$/"))), 0, 4);
     }
     
     /*

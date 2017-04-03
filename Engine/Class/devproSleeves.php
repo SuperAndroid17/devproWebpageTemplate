@@ -76,7 +76,9 @@ class devproSleeves extends devpro{
         $dp_premium_endDate = date('Y-m-d');
         $db = $this->openDB();
         
-        $query = ("INSERT INTO sleeveuploads_users (dp_username, dp_premium, dp_premium_endDate, dp_uploadCounter, dp_uploadLimit, dp_active, dp_storageLimit) VALUES (?,?,?,?,?,?,?)");
+        //$query = ("INSERT INTO sleeveuploads_users (dp_username, dp_premium, dp_premium_endDate, dp_uploadCounter, dp_uploadLimit, dp_active, dp_storageLimit) VALUES (?,?,?,?,?,?,?)");
+		
+		$query = ("INSERT INTO sleeveuploads_users (userID, dp_username, dp_premium, dp_premium_endDate, dp_uploadCounter, dp_uploadLimit, dp_active, dp_storageLimit) SELECT logindata.userID, ?, ?, ?, ?, ?, ?, ? FROM logindata  WHERE logindata.username = ? ");
         $exec = $db->prepare($query);
         $exec->bindParam(1, $username);
         $exec->bindParam(2, $this->dp_premium);
@@ -85,6 +87,7 @@ class devproSleeves extends devpro{
         $exec->bindParam(5, $this->dp_uploadLimit);
         $exec->bindParam(6, $this->dp_active);
         $exec->bindParam(7, $this->dp_storageLimit);
+        $exec->bindParam(8, $username);
         $res = $exec->execute();
         
         $exec = NULL;
@@ -119,7 +122,7 @@ class devproSleeves extends devpro{
         $username = $_SESSION['devproUsername'];
         $db = $this->openDB();
         
-        $query = ("SELECT * FROM tdoaneygoprologin WHERE username = ?");
+        $query = ("SELECT * FROM logindata WHERE username = ?");
         $eintrag = $db->prepare($query);
         $eintrag->bindParam(1, $username);
         $eintrag->execute();
@@ -176,7 +179,6 @@ class devproSleeves extends devpro{
        if($status !== TRUE){
            return $status; // notTrue = upload limit reached
        }
-       
        // check Account is active!
        $status = $this->checkAccountIsActive();
        if($status !== TRUE){
@@ -251,7 +253,7 @@ class devproSleeves extends devpro{
        if($_FILES['devproSleeveUpload']['size'] > 100000){
            return 'Uploadsize to big, max 50KB allowed!';
        }
-       
+	   
        // check Mime Type width Fileinfo PECL addon required
        $status = $this->checkMimeWithFileInfo($_FILES['devproSleeveUpload']['tmp_name']);
        if($status === FALSE){
@@ -269,6 +271,7 @@ class devproSleeves extends devpro{
    
    // check Mime with Fileinfo
    private function checkMimeWithFileInfo($file) {
+	   //phpinfo ();
        $finfo = new finfo();
        $fileinfo = $finfo->file($file, FILEINFO_MIME);
 
@@ -311,17 +314,18 @@ class devproSleeves extends devpro{
        imagejpeg ($img, $path, 100);
        
        // new Path on Server
-       $path_new = $_SERVER['DOCUMENT_ROOT'] . "launcher/sleeveUploads/";
+       $path_new = $_SERVER['DOCUMENT_ROOT'] . "/launcher/sleeveUploads/";
        
        // new Filename
        $filename = $this->generateFilenameForSleeveUpload();
-       
+	   
        //exit();
        // Move File to new Destination if File exist
        if( file_exists($path) ) {
             if(!is_writable($path_new)){
                 echo 'cant write in folder!';
-                exit();
+				return 'Permission Error';
+                exit('Permission Error');
             }
             if(move_uploaded_file($path, $path_new . $filename)){
                 $this->newPath = $path_new . $filename;
@@ -384,7 +388,8 @@ class devproSleeves extends devpro{
         $exec->bindParam(2, $username);
         $exec->execute();
        
-       $query = ("INSERT INTO sleeveuploads_uploads (dp_username, dp_sleeveActive, dp_SleeveUrl, dp_uploadDate, dp_filename) VALUES (?,?,?,?,?)"); 
+       //$query = ("INSERT INTO sleeveuploads_uploads (dp_username, dp_sleeveActive, dp_SleeveUrl, dp_uploadDate, dp_filename) VALUES (?,?,?,?,?)"); 
+	   $query = ("INSERT INTO sleeveuploads_uploads (userID, dp_username, dp_sleeveActive, dp_SleeveUrl, dp_uploadDate, dp_filename) SELECT logindata.userID, ?, ?, ?, ?, ? FROM logindata  WHERE logindata.username = ? ");
 
             $exec = $db->prepare($query);
             $exec->bindParam(1, $username);
@@ -392,8 +397,9 @@ class devproSleeves extends devpro{
             $exec->bindParam(3, $this->newPath);
             $exec->bindParam(4, $today);
             $exec->bindParam(5, $this->filename);
+            $exec->bindParam(6, $username);
             $exec->execute();
-            
+        
             
             // get Upload Counter
             $query = ("SELECT * FROM sleeveuploads_users WHERE dp_username = ?");

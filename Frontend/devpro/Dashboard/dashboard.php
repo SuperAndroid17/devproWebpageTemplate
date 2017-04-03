@@ -9,7 +9,7 @@ session_start();
  * if no Sessions go back to Main Frontend Site
  */
 if(!isset($_SESSION['devproSession'])){
-    header('Location: http://ygopro.de/web-devpro/?doLogin');
+    header('Location: http://158.69.116.140/web-devpro/index.php');
     exit();
 }
 
@@ -101,7 +101,7 @@ $(document).ready(function(){
         //prevent Default functionality
         e.preventDefault();
         
-         var url = "http://ygopro.de/web-devpro/Engine/Api/getjson.php";
+         var url = "http://158.69.116.140/web-devpro/Engine/Api/getjson.php";
 
          $.ajax({
                 url: url,
@@ -143,7 +143,7 @@ function getSleeveStatusData()
     console.log("getSleeveStatusData");
     var test = 'getSleeveStatusData';
 
-    var url = "http://ygopro.de/web-devpro/Engine/Api/getjson.php";
+    var url = "http://158.69.116.140/web-devpro/Engine/Api/getjson.php";
     $.ajax({
                 url: url,
                 type: 'post',
@@ -204,7 +204,7 @@ function getSleeveStatusData()
                     If you want send Devpoints to a User Account fill out the Form. Only needs the Username which you want feed and the Devpoints 
                     Amount.
                 </p>
-                <form id="dpTransferForm" action="http://ygopro.de/web-devpro/Engine/Api/getjson.php">
+                <form id="dpTransferForm" action="http://158.69.116.140/web-devpro/Engine/Api/getjson.php">
                       <fieldset>
 
                           <p>
@@ -225,89 +225,6 @@ function getSleeveStatusData()
       
       </div>
     
-    
-    <!--
-     Custom Sleeve Table
-    -->
-    <div class="container">
-              <div id="sleeveDetails">
-                  <div class="panel panel-default">
-                    <!-- Default panel contents -->
-                    <div class="panel-heading">Sleeve Manager - *Premium Account required</div>
-                    <div class="panel-body">
-                        
-                      <ul> 
-                          <li>Free Sleeve uploads without Devpoints</li>
-                          <li>Delete Sleeves</li>
-                          <li>Activate Sleeves</li>
-                          <li>Sleeve Storage limit up to 10</li>
-                      </ul>
-                        
-                        <!-- Zeige Sleeves aus Datenbank an! -->
-                        <!-- 1. BOX auf der Content Seite  -->
-                            <?php 
-                            if(!isset($_SESSION['devproPremium']))
-                            {
-                                echo '<p>*Premium Account required</p>';
-                                echo '<p>activate your Upload Account before you buy Premium!!!</p>';
-                                echo '<p>90 Days Premium = 9,99 Euro</p>';
-                                
-                                echo '<form name="_xclick" action="https://www.paypal.com/de/cgi-bin/webscr" method="post">
-                                    <input type="hidden" name="cmd" value="_xclick">
-                                    <input type="hidden" name="business" value="knechtbenjamin@web.de">
-                                    <input type="hidden" name="currency_code" value="EUR">
-                                    <input type="hidden" name="item_name" value="'.$_SESSION['devproUsername'].'">
-                                    <input type="hidden" name="amount" value="9.99">
-                                    <input type="image" src="https://www.paypalobjects.com/de_DE/CH/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="Zahlen Sie mit PayPal  schnell, kostenlos und sicher!">
-                                    </form>';
-                            }
-                            else 
-                                {   
-                                            $i = 1;
-                            
-                                        if(!empty($_SESSION['devproSleeves'])){
-                                            
-                                            echo '<table class="table">';
-                                            echo '<th>Number</th><th>Thumbnail</th><th>Url</th><th>activate</th><th>Delete</th>';
-
-                                            foreach ($_SESSION['devproSleeves'] as $value) {
-
-
-                                                echo '<tr>';
-                                                echo '<td>'.$i++.'</td>';
-                                                echo '<td><a href="#"><img src="http://ygopro.de/launcher/sleeveUploads/'.$value['dp_filename'].'" width="44px" height="64px" /></a></td>';
-                                                echo '<td><a href="http://ygopro.de/launcher/sleeveUploads/'.$value['dp_filename'].'">http://ygopro.de/launcher/sleeveUploads/'.$value['dp_filename'].'</a></td>';
-                                                if($value['dp_sleeveActive'] ==  0){
-                                                    echo '<td><a href="http://ygopro.de/web-devpro/index.php?site=Dashboard&activateSleeve='.$value['dp_id'].'">ID '.$value['dp_id'].' Activate</a></td>';
-                                                }
-                                                else {
-                                                    echo '<td>Sleeve active!</td>';
-                                                }
-                                                echo '<td><button>ID '.$value['dp_id'].' Delete</button></td>';
-                                                echo '</tr>';
-                                            }
-                                            echo '</table>';
-
-                                        }else{
-                                            echo '<p>Upload a Custom Sleeve to manage here your Sleeves!</p>';
-                                        }
-                                
-                             }
-                            
-                        ?>
-                    </div>
-
-                    <!-- Table -->
-                    
-                      
-                    
-                  </div>
-              </div>
-    </div>
-    
-    
-    
-   
     <!--
       Sleeve Upload
       -->
@@ -346,7 +263,7 @@ function getSleeveStatusData()
                         <td>
                 <?php
                     if(isset($_SESSION['devproActiveSleeve'])){
-                        echo '<img src="http://ygopro.de/launcher/sleeveUploads/' . $_SESSION['devproActiveSleeve'][0]['dp_filename'] . '" alt="My active Sleeve"  width="50"/>';
+                        echo '<img src="http://158.69.116.140/launcher/sleeveUploads/' . $_SESSION['devproActiveSleeve'][0]['dp_filename'] . '" alt="My active Sleeve"  width="50"/>';
                     }
                     else{
                         echo 'no active Sleeve!';
@@ -365,12 +282,12 @@ function getSleeveStatusData()
                 <!--
                 Sleeve Upload Form, hide without activateUpload Account
                 -->
-                <form enctype="multipart/form-data" action="http://ygopro.de/web-devpro/Engine/Api/getjson.php" method="post" id="sleeveUploadForm" style="display: none;">
+                <form enctype="multipart/form-data" action="http://158.69.116.140/web-devpro/Engine/Api/getjson.php" method="post" id="sleeveUploadForm" style="display: none;">
                     <div class="form-group">
                       <label for="beispielFeldDatei">Sleeve upload</label>
-                      <input type="hidden" name="MAX_FILE_SIZE" value="50000" />
+                      <input type="hidden" name="MAX_FILE_SIZE" value="70000" />
                       <input type="file" id="sleeveUploadFile" name="devproSleeveUpload">
-                      <p class="help-block">Format: JPG, Height: 177/178px, width: 254px, Max Filesize: 50KB, 100 Devpoints</p>
+                      <p class="help-block">Format: JPG, Width: 177/178px, Height: 254px, Max Filesize: 65KB, 100 Devpoints</p>
                     </div>
                     <button type="submit" class="btn btn-default">Upload</button>
                     <?php 

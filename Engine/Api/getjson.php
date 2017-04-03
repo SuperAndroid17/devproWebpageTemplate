@@ -40,7 +40,7 @@ if(isset($_POST['g-recaptcha-response'])){
         exit();
     }
     
-    $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Lcq4AMTAAAAALr9ZhgLJshlv2ZQ18dOArTomUld&response=".$devproCaptcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+    $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LcDAhITAAAAADChXZCotARLVz594S4OT6mCH61g&response=".$devproCaptcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
 
     if($response.success==false)
     {
@@ -173,11 +173,13 @@ if(isset($_FILES['devproSleeveUpload'])){
     $result = $devproSleeves->sleeveUpload();
     if($result === TRUE){
          $_SESSION['devproActiveSleeve'] = $devproSleeves->getActiveSleeve($_SESSION['devproUsername']);
-        header('Location: http://ygopro.de/web-devpro/index.php?site=Dashboard&sleeveupload=ok');
+        header('Location: http://158.69.116.140/web-devpro/index.php?site=Dashboard&sleeveupload=ok');
+		exit;
     }
     else
     {
-        header('Location: http://ygopro.de/web-devpro/index.php?site=Dashboard&sleeveupload=failed');
+        header('Location: http://158.69.116.140/web-devpro/index.php?site=Dashboard&sleeveupload=failed');
+		exit;
     }
 }
 

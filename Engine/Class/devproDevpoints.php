@@ -99,7 +99,7 @@ class devproDevpoints extends devpro {
     protected function checkUserExist($toUser) {
         
         $db = $this->openDatabase();
-        $query = ("SELECT * FROM tdoaneygoprologin WHERE username = ?");
+        $query = ("SELECT * FROM logindata WHERE username = ?");
         $eintrag = $db->prepare($query);
         $eintrag->bindParam(1, $toUser);
         $eintrag->execute();
